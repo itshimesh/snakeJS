@@ -1,0 +1,52 @@
+*, *:after, *:before {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 300px;
+  margin: auto;
+}
+
+.grid {
+  width: 300px;
+  height: 300px;
+  border: 1px solid black;
+  position: relative;
+}
+
+.grid:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.msg {
+  margin: 50px auto;
+  width: 100px;
+}
+
+.Button {
+  border: 2px solid black;
+  margin-top: 10px;
+  width: 49%;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.5em;
+}
+
+.snake {
+  width: 10px;
+  height: 10px;
+  background-color: black;
+  position: absolute;
+}
+
+.food {
+  width: 10px;
+  height: 10px;
+  background: url(images/apple.png) center;
+  position: absolute;
+}
+
