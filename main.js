@@ -1,20 +1,38 @@
 'use strict';
 (function() {
-  var snake, food, playing;
+  var snake, food, playing, score;
   var clicked = false;
 
   $(function(){
-    $('.grid').append('<div class="msg">Press Play to start the game!</div>');
-    $('.play').click(function(event) {
-       if (!playing){
-        $('.msg').remove();
-        playGame();
-       }
-    });
+    setGame();
   });
 
-  function playGame(){
+  $('.new').click(function(event) {
+    score = 0;
+    $('.score').html(score);
+    $(this).hide();
+    $('.level').show();
+  });
+
+  $('.level').click(function(event) {
+    $('.level').hide();
+    var x = $(this).attr('value');
+    playGame(x);
+  });
+
+  $('.msg').click(function(event) {
+    setGame();
+    $('.msg').hide();
+  });
+
+  function setGame(){
+    $('.new').show();
+  }
+
+  function playGame(level){
     playing = true;
+    snake = null;
+    food = null;
     var $grid = $('.grid');
 
     snake = new Snake($grid);
@@ -24,65 +42,61 @@
     var ID = setInterval(function(){
       if (snake.moving && !snake.gameOver){
         snake.move();
+        $('.score').html(score);
       }
       else if(snake.gameOver){
         clearInterval(ID);
-        console.log("game over");
-        $grid.append('<div class="msg">Game Over!<br>Press Play to start again.</div>');
+        console.log('game over');
+        $('.msg').show('fast', function() {
+          $(this).html('Game Over');
+        });
         playing = false;
       }
-    }, 200);
+    }, level);
   }
 
   $(document).keydown(function (e) {
-    snake.vx = snake.vy = 0;
-    switch (e.which){
-      case 37: //left
-        snake.vx = -1;
-        break;
-      case 38: //up
-        snake.vy = -1;
-        break;
-      case 39: //right
-        snake.vx = 1;
-        break;
-      case 40: //down
-        snake.vy = 1;
-        break;
-    }
-  });
-
-  $('.stop').click(function() {
-    snake.moving = !snake.moving;
-    if (!snake.moving) {
-      this.innerHTML = 'Unpause';
-    }
-    else {
-      this.innerHTML = 'Pause Game';
-    }
-    console.log(snake.moving);
-  });
-
-  function collision(item, snakeArray) {
-    for (var i = 2; i < snakeArray.length; i++) {
-      if(item[0] == snakeArray[i][0] && item[1] == snakeArray[i][1]){
-        return true;
+    if(playing){
+      snake.vx = snake.vy = 0;
+      switch (e.which){
+        case 37: //left
+          snake.vx = -1;
+          break;
+        case 38: //up
+          snake.vy = -1;
+          break;
+        case 39: //right
+          snake.vx = 1;
+          break;
+        case 40: //down
+          snake.vy = 1;
+          break;
       }
-    };
-    return false;
-  }
+    }
+  });
+
+  // $('.stop').click(function() {
+  //   snake.moving = !snake.moving;
+  //   if (!snake.moving) {
+  //     this.innerHTML = 'Unpause';
+  //   }
+  //   else {
+  //     this.innerHTML = 'Pause Game';
+  //   }
+  //   console.log(snake.moving);
+  // });
 
   function Snake($grid){
     this.moving = true;
     this.position = [[0,0]];
     this.headX = this.position[0][0];
     this.headY = this.position[0][1];
-    this.vx = 1;
+    this.vx = 0;
     this.vy = 0;
-    this.size = 10;
+    this.size = 20;
     this.gameOver = false;
     this.grid = $grid;
-    this.grid.append('<div class="snake"></div>');
+    this.grid.prepend('<div class="snake head"></div>');
   }
 
   Snake.prototype.Code = function(){
@@ -111,6 +125,7 @@
       });
       // If snake head gets food, move food location
       if (this.position[0][0] == food.x && this.position[0][1] == food.y){
+        score++;
         food.make();
         this.addTail(snakeHeadX, snakeHeadY);
       }
@@ -124,7 +139,7 @@
   }
 
   Snake.prototype.wallCheck = function(snakeHeadX, snakeHeadY){
-    if ((snakeHeadX > this.grid.outerWidth() - 10 || snakeHeadX < 0) || (snakeHeadY > this.grid.outerHeight() - 10 || snakeHeadY < 0)){
+    if ((snakeHeadX > this.grid.width() - 10 || snakeHeadX < 0) || (snakeHeadY > this.grid.height() - 10 || snakeHeadY < 0)){
       return true;
     }
     else
@@ -137,21 +152,23 @@
   }
 
   function Food($grid){
-    this.size = 10;
+    this.size = 20;
     this.x;
     this.y;
-    this.gridW = $grid.outerWidth();
-    this.gridH = $grid.outerHeight();
+    this.gridW = $grid.width();
+    this.gridH = $grid.height();
     $grid.append('<div class="food"></div>');
     this.Code = $('.food');
   }
 
   Food.prototype.make = function($grid){
-    var xLimit = Math.floor(Math.random()*(this.gridW)/10)*10;
-    var yLimit = Math.floor(Math.random()*(this.gridH)/10)*10;
+    var xLimit = Math.floor(Math.random()*(this.gridW/this.size))*this.size;
+    var yLimit = Math.floor(Math.random()*(this.gridH/this.size))*this.size;
+    console.log('this is xl ' + xLimit);
+    console.log('this is yl ' + yLimit);
     if (collision([xLimit, yLimit], snake.position)) {
-      xLimit = Math.floor(Math.random()*(this.gridW)/10)*10;
-      yLimit = Math.floor(Math.random()*(this.gridH)/10)*10;
+      xLimit = Math.floor(Math.random()*(this.gridW/this.size))*this.size;
+      yLimit = Math.floor(Math.random()*(this.gridH/this.size))*this.size;
     }
     this.x = xLimit;
     this.y = yLimit;
@@ -159,6 +176,15 @@
         top: this.y,
         left: this.x
       });
+  }
+
+  function collision(item, snakeArray) {
+    for (var i = 2; i < snakeArray.length; i++) {
+      if(item[0] == snakeArray[i][0] && item[1] == snakeArray[i][1]){
+        return true;
+      }
+    };
+    return false;
   }
 
 }());

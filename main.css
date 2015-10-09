@@ -1,19 +1,20 @@
 *, *:after, *:before {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+  background-color: #ffdab9;
+  font-family: Arial;
 }
 
 .container {
-  width: 300px;
+  width: 600px;
   margin: auto;
 }
 
 .grid {
-  width: 300px;
-  height: 300px;
-  border: 1px solid black;
+  width: 600px;
+  height: 600px;
   position: relative;
+  text-align: center;
+  background-color: #b9deff;
+  border: 3px solid black;
 }
 
 .grid:after {
@@ -22,30 +23,75 @@
   clear: both;
 }
 
-.msg {
-  margin: 50px auto;
-  width: 100px;
+.start {
+  margin-top: 20%;
+  position: relative;
+  display: inline-block;
+  width: 45%;
+  background-color: #b9deff;
 }
 
-.Button {
-  border: 2px solid black;
-  margin-top: 10px;
-  width: 49%;
-  display: inline-block;
+.top {
+  font-size: 30px;
+}
+
+.score {
+  font-weight: 600;
+}
+
+.btn {
+  display: none;
+  -webkit-border-radius: 15;
+  -moz-border-radius: 15;
+  border-radius: 15px;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 40px;
+  background: rgba(52,152,219,1);
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
   text-align: center;
-  line-height: 1.5em;
+  margin: 20px 0px;
+  -webkit-transition: background-color 100ms linear;
+  -moz-transition: background-color 100ms linear;
+  -o-transition: background-color 100ms linear;
+  -ms-transition: background-color 100ms linear;
+  transition: background-color 100ms linear;
+}
+
+.btn:hover {
+  background: rgba(52,152,219,0.7);
+/*  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+  background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+  text-decoration: none;*/
+}
+
+.new, .msg {
+  margin-top: 30%;
+}
+
+.level {
+  margin: 20px 25px;
+}
+
+.snake.head{
+  background-color: #6f0166;
 }
 
 .snake {
-  width: 10px;
-  height: 10px;
-  background-color: black;
+  width: 20px;
+  height: 20px;
+  background-color: #016f0a;
   position: absolute;
+  border-radius: 50%;
 }
 
 .food {
-  width: 10px;
-  height: 10px;
+  width: 20px;
+  height: 20px;
   background: url(images/apple.png) center;
   position: absolute;
 }

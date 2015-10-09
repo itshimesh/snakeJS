@@ -4,3 +4,4 @@
 - Add background
 - Make snake an image
 - Make buttons more pretty
+- Add speed slider
