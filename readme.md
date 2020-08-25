@@ -5,3 +5,4 @@
 - ~~Make snake an image
 - ~~Make buttons more pretty~~
 - ~~Add speed slider (added levels instead)~~
+- Add comments to code

@@ -7,18 +7,26 @@
     setGame();
   });
 
+
   $('.new').click(function(event) {
     score = 0;
     $('.score').html(score);
-    $(this).hide();
-    $('.level').show();
+    $(this).html('').hide();
+    playGame('x');
   });
 
-  $('.level').click(function(event) {
-    $('.level').hide();
-    var x = $(this).attr('value');
-    playGame(x);
-  });
+  // $('.new').click(function(event) {
+  //   score = 0;
+  //   $('.score').html(score);
+  //   $(this).hide();
+  //   $('.level').show();
+  // });
+
+  // $('.level').click(function(event) {
+  //   $('.level').hide();
+  //   var x = $(this).attr('value');
+  //   playGame(x);
+  // });
 
   $('.msg').click(function(event) {
     setGame();
@@ -47,12 +55,12 @@
       else if(snake.gameOver){
         clearInterval(ID);
         console.log('game over');
-        $('.msg').show('fast', function() {
-          $(this).html('Game Over');
+        $('.new').show('fast', function() {
+          $(this).html('Play Again?');
         });
         playing = false;
       }
-    }, level);
+    }, 200);
   }
 
   $(document).keydown(function (e) {
@@ -93,7 +101,7 @@
     this.headY = this.position[0][1];
     this.vx = 0;
     this.vy = 0;
-    this.size = 20;
+    this.size = 50;
     this.gameOver = false;
     this.grid = $grid;
     this.grid.prepend('<div class="snake head"></div>');
@@ -152,7 +160,7 @@
   }
 
   function Food($grid){
-    this.size = 20;
+    this.size = 50;
     this.x;
     this.y;
     this.gridW = $grid.width();
@@ -169,6 +177,7 @@
     if (collision([xLimit, yLimit], snake.position)) {
       xLimit = Math.floor(Math.random()*(this.gridW/this.size))*this.size;
       yLimit = Math.floor(Math.random()*(this.gridH/this.size))*this.size;
+      console.log('food collision');
     }
     this.x = xLimit;
     this.y = yLimit;
