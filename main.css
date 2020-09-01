@@ -3,39 +3,52 @@
   font-family: Arial;
 }*/
 
-body {
+html, body {
   font-family: Arial;
+  height: 100%;
+  margin: 0px;
 }
 
 .container {
-  width: 600px;
-  margin: auto;
+  display: flex;
+  flex-direction: column;
+  /*justify-content: space-between;*/
+  height: 100%;
+  max-width: 700px;
+  /*width: 600px;*/
+  /*margin: auto;*/
 }
 
 .grid {
-  width: 600px;
+/*  width: 100%;
+  max-width: 600px;
   height: 600px;
-  max-height: 100%;
+  max-height: 100%;*/
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   position: relative;
   text-align: center;
   background-color: #000;
 }
 
-.grid:after {
+/*.grid:after {
   content: "";
   display: table;
   clear: both;
-}
+}*/
 
 .start {
-  margin-top: 20%;
+  /*margin-top: 20%;*/
+  margin: auto;
   position: relative;
   display: inline-block;
   width: 45%;
 }
 
 .top {
-  font-size: 30px;
+  font-size: 2rem;
   padding-bottom: 10px;
 }
 
@@ -44,13 +57,12 @@ body {
 }
 
 .btn {
-  display: none;
   -webkit-border-radius: 15;
   -moz-border-radius: 15;
   border-radius: 15px;
   color: #000;
   cursor: pointer;
-  font-size: 40px;
+  font-size: 2.5rem;
   background: linear-gradient(167.13deg, #FABF4D -3.31%, #F583B4 28.13%, #87A3FF 62.1%, #65DACB 94.05%);
   padding: 10px 20px 10px 20px;
   text-decoration: none;
@@ -73,33 +85,31 @@ body {
   text-decoration: none;*/
 }
 
-.new, .msg {
+/*.new {
   margin-top: 30%;
-}
+}*/
 
-.level {
+/*.level {
   margin: 20px 25px;
 }
-
+*/
 .snake.head {
-  width: 50px;
-  height: 50px;
   background: url(images/smile_head.png) no-repeat;
   background-size: 100%;
   position: absolute;
 }
 
 .snake {
-  width: 50px;
-  height: 50px;
+  width: 10%;
+  padding-bottom: 10%;
   background: url(images/smile_body.png) no-repeat;
   background-size: 100%;
   position: absolute;
 }
 
 .food {
-  width: 50px;
-  height: 50px;
+  width: 10%;
+  padding-bottom: 10%;
   background: url(images/heart.png) no-repeat;
   background-size: 100%;
   position: absolute;

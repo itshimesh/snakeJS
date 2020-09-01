@@ -3,9 +3,9 @@
   var snake, food, playing, score;
   var clicked = false;
 
-  $(function(){
-    setGame();
-  });
+  // $(function(){
+  //   setGame();
+  // });
 
 
   $('.new').click(function(event) {
@@ -28,14 +28,14 @@
   //   playGame(x);
   // });
 
-  $('.msg').click(function(event) {
-    setGame();
-    $('.msg').hide();
-  });
+  // $('.msg').click(function(event) {
+  //   setGame();
+  //   $('.msg').hide();
+  // });
 
-  function setGame(){
-    $('.new').show();
-  }
+  // function setGame(){
+  //   $('.new').show();
+  // }
 
   function playGame(level){
     playing = true;
@@ -44,6 +44,13 @@
     var $grid = $('.grid');
 
     snake = new Snake($grid);
+    snake.size = snake.Code().width();
+    //change height to match snake size, which is based on width to create correct grid size
+    $grid.css({
+      height: Math.floor($grid.height()/snake.size)*snake.size,
+      'flex-grow': 0
+    });
+
     food = new Food($grid);
     food.make();
 
@@ -95,16 +102,17 @@
   // });
 
   function Snake($grid){
+    this.grid = $grid;
+    this.grid.prepend('<div class="snake head"></div>');
     this.moving = true;
     this.position = [[0,0]];
     this.headX = this.position[0][0];
     this.headY = this.position[0][1];
     this.vx = 0;
     this.vy = 0;
+    // this.size = this.Code.width();
     this.size = 50;
     this.gameOver = false;
-    this.grid = $grid;
-    this.grid.prepend('<div class="snake head"></div>');
   }
 
   Snake.prototype.Code = function(){
@@ -112,6 +120,8 @@
   }
 
   Snake.prototype.move = function(){
+    // this.size = this.Code().width();
+
     //new coords
     var snakeHeadX = this.position[0][0] + this.vx*this.size;
     var snakeHeadY = this.position[0][1] + this.vy*this.size;
@@ -160,20 +170,25 @@
   }
 
   function Food($grid){
-    this.size = 50;
     this.x;
     this.y;
     this.gridW = $grid.width();
     this.gridH = $grid.height();
     $grid.append('<div class="food"></div>');
     this.Code = $('.food');
+    this.size = this.Code.width();
   }
 
   Food.prototype.make = function($grid){
-    var xLimit = Math.floor(Math.random()*(this.gridW/this.size))*this.size;
-    var yLimit = Math.floor(Math.random()*(this.gridH/this.size))*this.size;
-    console.log('this is xl ' + xLimit);
-    console.log('this is yl ' + yLimit);
+    var xR = Math.floor(Math.random()*(this.gridW/this.size));
+    var yR = Math.floor(Math.random()*(this.gridH/this.size));
+    var xLimit = xR*this.size;
+    var yLimit = yR*this.size;
+    // var xLimit = Math.floor(Math.random()*(this.gridW/this.size))*this.size;
+    // var yLimit = Math.floor(Math.random()*(this.gridH/this.size))*this.size;
+    console.log('xR ' + xR + '* size ' + this.size + '=xlimit ' + xLimit);
+    console.log('yR ' + yR + '* size ' + this.size + '=ylimit ' + yLimit);
+    console.log('end');
     if (collision([xLimit, yLimit], snake.position)) {
       xLimit = Math.floor(Math.random()*(this.gridW/this.size))*this.size;
       yLimit = Math.floor(Math.random()*(this.gridH/this.size))*this.size;
