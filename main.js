@@ -90,6 +90,38 @@
     }
   });
 
+  document.addEventListener('swiped-left', function(e) {
+    if (playing) {
+      snake.vx = snake.vy = 0;
+      snake.vx = -1;
+      console.log("left")
+    }
+  });
+
+  document.addEventListener('swiped-right', function(e) {
+    if (playing) {
+      snake.vx = snake.vy = 0;
+      snake.vx = 1;
+      console.log("right")
+    }
+  });
+
+  document.addEventListener('swiped-up', function(e) {
+    if (playing) {
+      snake.vx = snake.vy = 0;
+      snake.vy = -1;
+      console.log("up")
+    }
+  });
+
+  document.addEventListener('swiped-down', function(e) {
+    if (playing) {
+      snake.vx = snake.vy = 0;
+      snake.vy = 1;
+      console.log("down")
+    }
+  });
+
   // $('.stop').click(function() {
   //   snake.moving = !snake.moving;
   //   if (!snake.moving) {
