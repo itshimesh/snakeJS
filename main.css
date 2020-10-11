@@ -8,6 +8,9 @@ html, body {
   height: 100%;
   margin: 0px;
   overscroll-behavior-y: contain;
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
 .container {

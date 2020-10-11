@@ -12,6 +12,11 @@
     score = 0;
     $('.score').html(score);
     $(this).html('').hide();
+    $('.grid').css({
+      'width': '',
+      'height': '',
+      'flex-grow': ''
+    });
     playGame('x');
   });
 
