@@ -14,7 +14,7 @@ html, body {
   flex-direction: column;
   /*justify-content: space-between;*/
   height: 100%;
-  max-width: 700px;
+  /*max-width: 700px;*/
   /*width: 600px;*/
   /*margin: auto;*/
 }
@@ -100,18 +100,25 @@ html, body {
 }
 
 .snake {
-  width: 10%;
-  padding-bottom: 10%;
+  width: 75px;
+  /*padding-bottom: 10%;*/
   background: url(images/smile_body.png) no-repeat;
   background-size: 100%;
   position: absolute;
 }
 
 .food {
-  width: 10%;
-  padding-bottom: 10%;
+  width: 75px;
+  /*padding-bottom: 10%;*/
   background: url(images/heart.png) no-repeat;
   background-size: 100%;
   position: absolute;
 }
+
+
+/*@media (any-pointer: coarse) {
+    .snake {
+      min-width: 75px;
+    }
+}*/
 

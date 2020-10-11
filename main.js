@@ -37,6 +37,16 @@
   //   $('.new').show();
   // }
 
+  // function setUp(snake, food, $grid){
+  //   var newWidth = $grid.width()/(Math.floor($grid.width()/snake.Code().width()));
+  //   snake.size = newWidth;
+  //   $('.snake').css({
+  //     'width': snake.size,
+  //     'padding-bottom': snake.size,
+  //   });
+
+  // }
+
   function playGame(level){
     playing = true;
     snake = null;
@@ -45,14 +55,23 @@
 
     snake = new Snake($grid);
     snake.size = snake.Code().width();
+
     //change height to match snake size, which is based on width to create correct grid size
     $grid.css({
-      height: Math.floor($grid.height()/snake.size)*snake.size,
+      'width': Math.floor($grid.width()/snake.size)*snake.size,
+      'height': Math.floor($grid.height()/snake.size)*snake.size,
       'flex-grow': 0
     });
 
+    //adding padding bottom equal to width
+    $('.snake').css('padding-bottom', snake.size);
+
+
     food = new Food($grid);
     food.make();
+    food.Code.css({
+      "padding-bottom" : food.size
+    });
 
     var ID = setInterval(function(){
       if (snake.moving && !snake.gameOver){
@@ -184,6 +203,7 @@
 
   Snake.prototype.addTail = function(snakeHeadX, snakeHeadY){
     this.grid.append('<div class="snake"></div>');
+    this.Code().css('padding-bottom', this.size);
     this.position.unshift([snakeHeadX, snakeHeadY]);
     this.move();
   }
